@@ -5,6 +5,7 @@
 package main.java.forum.GUI;
 
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
@@ -16,17 +17,34 @@ public class MainScreen extends JFrame {
         initComponents();
     }
 
+    private void SearchMouseClicked(MouseEvent e) {
+        // TODO add your code here
+        Search s = new Search();
+    }
+
+    private void thisWindowClosed(WindowEvent e) {
+        // TODO add your code here
+
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         dialogPane = new JPanel();
         contentPanel = new JPanel();
         button1 = new JButton();
-        button2 = new JButton();
+        Search = new JButton();
         buttonBar = new JPanel();
         okButton = new JButton();
         cancelButton = new JButton();
 
         //======== this ========
+        setVisible(true);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                thisWindowClosed(e);
+            }
+        });
         var contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
 
@@ -43,9 +61,15 @@ public class MainScreen extends JFrame {
                 button1.setText("\u6ce8\u518c");
                 contentPanel.add(button1);
 
-                //---- button2 ----
-                button2.setText("\u67e5\u8be2");
-                contentPanel.add(button2);
+                //---- Search ----
+                Search.setText("\u67e5\u8be2");
+                Search.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        SearchMouseClicked(e);
+                    }
+                });
+                contentPanel.add(Search);
             }
             dialogPane.add(contentPanel, BorderLayout.CENTER);
 
@@ -80,7 +104,7 @@ public class MainScreen extends JFrame {
     private JPanel dialogPane;
     private JPanel contentPanel;
     private JButton button1;
-    private JButton button2;
+    private JButton Search;
     private JPanel buttonBar;
     private JButton okButton;
     private JButton cancelButton;
