@@ -5,7 +5,7 @@ import main.java.forum.util.DBUtil;
 import java.sql.*;
 
 public class Main {
-    public static void main(String[] args) throws SQLException, ClassNotFoundException {
+    public static void main(String[] args) throws SQLException {
         Connection connection = DBUtil.connection();
         Statement statement = connection.createStatement();
         String sql = "SELECT * FROM user;";
