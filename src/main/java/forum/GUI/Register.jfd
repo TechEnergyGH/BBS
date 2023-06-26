@@ -6,6 +6,7 @@ new FormModel {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class java.awt.BorderLayout ) ) {
 			name: "this"
 			"visible": true
+			"preferredSize": new java.awt.Dimension( 400, 300 )
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
 				name: "dialogPane"
 				"border": new javax.swing.border.EmptyBorder( 12, 12, 12, 12 )
@@ -57,6 +58,7 @@ new FormModel {
 							add( new FormComponent( "javax.swing.JTextField" ) {
 								name: "Year"
 								"preferredSize": new java.awt.Dimension( 50, 30 )
+								"minimumSize": new java.awt.Dimension( 50, 30 )
 							} )
 							add( new FormComponent( "javax.swing.JLabel" ) {
 								name: "label5"
@@ -65,6 +67,7 @@ new FormModel {
 							add( new FormComponent( "javax.swing.JTextField" ) {
 								name: "Month"
 								"minimumSize": new java.awt.Dimension( 50, 30 )
+								"preferredSize": new java.awt.Dimension( 50, 30 )
 							} )
 							add( new FormComponent( "javax.swing.JLabel" ) {
 								name: "label6"
@@ -73,6 +76,7 @@ new FormModel {
 							add( new FormComponent( "javax.swing.JTextField" ) {
 								name: "Day"
 								"minimumSize": new java.awt.Dimension( 50, 30 )
+								"preferredSize": new java.awt.Dimension( 50, 30 )
 							} )
 							add( new FormComponent( "javax.swing.JLabel" ) {
 								name: "label7"

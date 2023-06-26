@@ -4,11 +4,21 @@
 
 package main.java.forum.GUI;
 
+import main.java.forum.model.User;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.beans.*;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import javax.swing.*;
 import javax.swing.border.*;
+
+import static main.java.forum.util.DBUtil.connection;
 
 /**
  * @author 11318
@@ -39,11 +49,33 @@ public class Register extends JFrame {
             JOptionPane.showMessageDialog(null, "请填写邮箱！", "警告", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
+        if (Year.getText().equals("") || Month.getText().equals("") || Day.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "请填写生日！", "警告", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
         if (Sex == null) {
             JOptionPane.showMessageDialog(null, "请选择性别！", "警告", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
-
+        User user = new User();
+        user.setName(Name.getText());
+        user.setPassword(Password.getText());
+        user.setEmail(Email.getText());
+        user.setBirthday(LocalDate.of(Integer.parseInt(Year.getText()), Integer.parseInt(Month.getText()), Integer.parseInt(Day.getText())));
+        user.setSex(Sex);
+        try (Connection connection = connection()) {
+            String sql = "INSERT into user VALUES(0,?,?,?,?,?,'0','0','0');";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, user.getName());
+            ps.setString(2, user.getPassword());
+            ps.setString(3, user.getEmail());
+            ps.setString(4, user.getSex());
+            ps.setString(5, user.getBirthday().toString());
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "邮箱已被注册！", "警告", JOptionPane.INFORMATION_MESSAGE);
+            throw new RuntimeException(ex);
+        }
     }
 
     private void MenMouseClicked(MouseEvent e) {
@@ -87,6 +119,7 @@ public class Register extends JFrame {
 
         //======== this ========
         setVisible(true);
+        setPreferredSize(new Dimension(400, 300));
         var contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
 
@@ -155,6 +188,7 @@ public class Register extends JFrame {
 
                         //---- Year ----
                         Year.setPreferredSize(new Dimension(50, 30));
+                        Year.setMinimumSize(new Dimension(50, 30));
                         panel5.add(Year);
 
                         //---- label5 ----
@@ -163,6 +197,7 @@ public class Register extends JFrame {
 
                         //---- Month ----
                         Month.setMinimumSize(new Dimension(50, 30));
+                        Month.setPreferredSize(new Dimension(50, 30));
                         panel5.add(Month);
 
                         //---- label6 ----
@@ -171,6 +206,7 @@ public class Register extends JFrame {
 
                         //---- Day ----
                         Day.setMinimumSize(new Dimension(50, 30));
+                        Day.setPreferredSize(new Dimension(50, 30));
                         panel5.add(Day);
 
                         //---- label7 ----
