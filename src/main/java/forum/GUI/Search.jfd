@@ -5,7 +5,7 @@ new FormModel {
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class java.awt.BorderLayout ) ) {
 			name: "this"
-			"preferredSize": new java.awt.Dimension( 530, 330 )
+			"preferredSize": new java.awt.Dimension( 600, 330 )
 			"visible": true
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
 				name: "dialogPane"
@@ -34,6 +34,17 @@ new FormModel {
 						} )
 						add( new FormComponent( "javax.swing.JTextField" ) {
 							name: "Name"
+							"preferredSize": new java.awt.Dimension( 100, 30 )
+						} )
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) ) {
+						name: "panel4"
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label3"
+							"text": "Email"
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "Email"
 							"preferredSize": new java.awt.Dimension( 100, 30 )
 						} )
 					} )
@@ -88,7 +99,7 @@ new FormModel {
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
-			"size": new java.awt.Dimension( 530, 330 )
+			"size": new java.awt.Dimension( 600, 330 )
 		} )
 	}
 }

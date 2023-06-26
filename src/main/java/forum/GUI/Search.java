@@ -27,41 +27,73 @@ public class Search extends JFrame {
         // TODO add your code here
         String uid = UID.getText();
         String name = Name.getText();
-        if (uid.equals("") && name.equals("")) {
+        String email = Email.getText();
+        if (uid.equals("") && name.equals("") && email.equals("")) {
             Result.setText("空");
             return;
         }
         try (Connection connection = connection()) {
             try {
-                Result.setText("");
-                Statement statement = connection.createStatement();
-                if (!uid.equals("") && !name.equals("")) {
-                    String sql = "select * from user where uid=?&&name=?";
+                Result.setText("uID\tName\tEmail\tSex\tBirthday\n");
+                String sql;
+                if (!uid.equals("") && !name.equals("") && !email.equals("")) {
+                    sql = "select * from user where uID=?&&Name=?&&Email=?";
+                    PreparedStatement ps = connection.prepareStatement(sql);
+                    ps.setString(1, uid);
+                    ps.setString(2, name);
+                    ps.setString(3, email);
+                    ResultSet rs = ps.executeQuery();
+                    while (rs.next()) {
+                        Result.append(rs.getString("uID") + "\t" + rs.getString("Name") + "\t" + rs.getString("Email") + "\t" + rs.getString("Sex") + "\t" + rs.getString("Birthday") + "\n");
+                    }
+                } else if (!uid.equals("") && !name.equals("")) {
+                    sql = "select * from user where uID=?&&Name=?";
                     PreparedStatement ps = connection.prepareStatement(sql);
                     ps.setString(1, uid);
                     ps.setString(2, name);
                     ResultSet rs = ps.executeQuery();
-                    Result.append("uID\tName\tEmail\tSex\tBirthday\n");
+                    while (rs.next()) {
+                        Result.append(rs.getString("uID") + "\t" + rs.getString("Name") + "\t" + rs.getString("Email") + "\t" + rs.getString("Sex") + "\t" + rs.getString("Birthday") + "\n");
+                    }
+                } else if (!uid.equals("") && !email.equals("")) {
+                    sql = "select * from user where uID=?&&Email=?";
+                    PreparedStatement ps = connection.prepareStatement(sql);
+                    ps.setString(1, name);
+                    ps.setString(2, email);
+                    ResultSet rs = ps.executeQuery();
+                    while (rs.next()) {
+                        Result.append(rs.getString("uID") + "\t" + rs.getString("Name") + "\t" + rs.getString("Email") + "\t" + rs.getString("Sex") + "\t" + rs.getString("Birthday") + "\n");
+                    }
+                } else if (!name.equals("") && !email.equals("")) {
+                    sql = "select * from user where uID=?&&name=?&&Email=?";
+                    PreparedStatement ps = connection.prepareStatement(sql);
+                    ps.setString(1, name);
+                    ps.setString(2, email);
+                    ResultSet rs = ps.executeQuery();
                     while (rs.next()) {
                         Result.append(rs.getString("uID") + "\t" + rs.getString("Name") + "\t" + rs.getString("Email") + "\t" + rs.getString("Sex") + "\t" + rs.getString("Birthday") + "\n");
                     }
                 } else if (!uid.equals("")) {
-                    String sql = "select * from user where uid=?";
+                    sql = "select * from user where uID=?";
                     PreparedStatement ps = connection.prepareStatement(sql);
                     ps.setString(1, uid);
                     ResultSet rs = ps.executeQuery();
-
-                    Result.append("uID\tName\tEmail\tSex\tBirthday\n");
+                    while (rs.next()) {
+                        Result.append(rs.getString("uID") + "\t" + rs.getString("Name") + "\t" + rs.getString("Email") + "\t" + rs.getString("Sex") + "\t" + rs.getString("Birthday") + "\n");
+                    }
+                } else if (!name.equals("")) {
+                    sql = "select * from user where Name=?";
+                    PreparedStatement ps = connection.prepareStatement(sql);
+                    ps.setString(1, name);
+                    ResultSet rs = ps.executeQuery();
                     while (rs.next()) {
                         Result.append(rs.getString("uID") + "\t" + rs.getString("Name") + "\t" + rs.getString("Email") + "\t" + rs.getString("Sex") + "\t" + rs.getString("Birthday") + "\n");
                     }
                 } else {
-                    String sql = "select * from user where name=?";
+                    sql = "select * from user where Email=?";
                     PreparedStatement ps = connection.prepareStatement(sql);
-                    ps.setString(1, name);
+                    ps.setString(1, email);
                     ResultSet rs = ps.executeQuery();
-
-                    Result.append("uID\tName\tEmail\tSex\tBirthday\n");
                     while (rs.next()) {
                         Result.append(rs.getString("uID") + "\t" + rs.getString("Name") + "\t" + rs.getString("Email") + "\t" + rs.getString("Sex") + "\t" + rs.getString("Birthday") + "\n");
                     }
@@ -84,6 +116,9 @@ public class Search extends JFrame {
         panel2 = new JPanel();
         label2 = new JLabel();
         Name = new JTextField();
+        panel4 = new JPanel();
+        label3 = new JLabel();
+        Email = new JTextField();
         search = new JButton();
         buttonBar = new JPanel();
         okButton = new JButton();
@@ -93,7 +128,7 @@ public class Search extends JFrame {
         Result = new JTextArea();
 
         //======== this ========
-        setPreferredSize(new Dimension(530, 330));
+        setPreferredSize(new Dimension(600, 330));
         setVisible(true);
         var contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
@@ -137,6 +172,20 @@ public class Search extends JFrame {
                     panel2.add(Name);
                 }
                 contentPanel.add(panel2);
+
+                //======== panel4 ========
+                {
+                    panel4.setLayout(new FlowLayout());
+
+                    //---- label3 ----
+                    label3.setText("Email");
+                    panel4.add(label3);
+
+                    //---- Email ----
+                    Email.setPreferredSize(new Dimension(100, 30));
+                    panel4.add(Email);
+                }
+                contentPanel.add(panel4);
 
                 //---- search ----
                 search.setText("\u67e5\u8be2");
@@ -202,6 +251,9 @@ public class Search extends JFrame {
     private JPanel panel2;
     private JLabel label2;
     private JTextField Name;
+    private JPanel panel4;
+    private JLabel label3;
+    private JTextField Email;
     private JButton search;
     private JPanel buttonBar;
     private JButton okButton;
