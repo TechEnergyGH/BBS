@@ -27,6 +27,11 @@ public class MainScreen extends JFrame {
 
     }
 
+    private void thisWindowClosing(WindowEvent e) {
+        // TODO add your code here
+        System.exit(0);
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         dialogPane = new JPanel();
@@ -41,8 +46,8 @@ public class MainScreen extends JFrame {
         setVisible(true);
         addWindowListener(new WindowAdapter() {
             @Override
-            public void windowClosed(WindowEvent e) {
-                thisWindowClosed(e);
+            public void windowClosing(WindowEvent e) {
+                thisWindowClosing(e);
             }
         });
         var contentPane = getContentPane();
