@@ -4,6 +4,7 @@
 
 package main.java.forum.GUI;
 
+import main.java.forum.GUI.user.Modify;
 import main.java.forum.GUI.user.Register;
 import main.java.forum.GUI.user.Search;
 
@@ -40,12 +41,18 @@ public class MainScreen extends JFrame {
         System.exit(0);
     }
 
+    private void ModifyMouseClicked(MouseEvent e) {
+        // TODO add your code here
+        Modify m = new Modify();
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         dialogPane = new JPanel();
         contentPanel = new JPanel();
         Register = new JButton();
         Search = new JButton();
+        Modify = new JButton();
         buttonBar = new JPanel();
         cancelButton = new JButton();
 
@@ -89,6 +96,16 @@ public class MainScreen extends JFrame {
                     }
                 });
                 contentPanel.add(Search);
+
+                //---- Modify ----
+                Modify.setText("\u4fee\u6539");
+                Modify.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        ModifyMouseClicked(e);
+                    }
+                });
+                contentPanel.add(Modify);
             }
             dialogPane.add(contentPanel, BorderLayout.CENTER);
 
@@ -124,6 +141,7 @@ public class MainScreen extends JFrame {
     private JPanel contentPanel;
     private JButton Register;
     private JButton Search;
+    private JButton Modify;
     private JPanel buttonBar;
     private JButton cancelButton;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
