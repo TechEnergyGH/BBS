@@ -22,21 +22,21 @@ public class MainScreen extends JFrame {
         Search s = new Search();
     }
 
-    private void thisWindowClosed(WindowEvent e) {
-        // TODO add your code here
-
-    }
-
     private void thisWindowClosing(WindowEvent e) {
         // TODO add your code here
         System.exit(0);
+    }
+
+    private void RegisterMouseClicked(MouseEvent e) {
+        // TODO add your code here
+        Register r = new Register();
     }
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         dialogPane = new JPanel();
         contentPanel = new JPanel();
-        button1 = new JButton();
+        Register = new JButton();
         Search = new JButton();
         buttonBar = new JPanel();
         okButton = new JButton();
@@ -44,6 +44,7 @@ public class MainScreen extends JFrame {
 
         //======== this ========
         setVisible(true);
+        setPreferredSize(new Dimension(400, 300));
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -62,9 +63,15 @@ public class MainScreen extends JFrame {
             {
                 contentPanel.setLayout(new FlowLayout());
 
-                //---- button1 ----
-                button1.setText("\u6ce8\u518c");
-                contentPanel.add(button1);
+                //---- Register ----
+                Register.setText("\u6ce8\u518c");
+                Register.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        RegisterMouseClicked(e);
+                    }
+                });
+                contentPanel.add(Register);
 
                 //---- Search ----
                 Search.setText("\u67e5\u8be2");
@@ -108,7 +115,7 @@ public class MainScreen extends JFrame {
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
     private JPanel dialogPane;
     private JPanel contentPanel;
-    private JButton button1;
+    private JButton Register;
     private JButton Search;
     private JPanel buttonBar;
     private JButton okButton;

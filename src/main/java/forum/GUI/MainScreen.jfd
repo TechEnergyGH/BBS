@@ -6,6 +6,7 @@ new FormModel {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class java.awt.BorderLayout ) ) {
 			name: "this"
 			"visible": true
+			"preferredSize": new java.awt.Dimension( 400, 300 )
 			addEvent( new FormEvent( "java.awt.event.WindowListener", "windowClosing", "thisWindowClosing", true ) )
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
 				name: "dialogPane"
@@ -13,8 +14,9 @@ new FormModel {
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) ) {
 					name: "contentPanel"
 					add( new FormComponent( "javax.swing.JButton" ) {
-						name: "button1"
+						name: "Register"
 						"text": "注册"
+						addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "RegisterMouseClicked", true ) )
 					} )
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "Search"

@@ -1,0 +1,143 @@
+JFDML JFormDesigner: "8.1.0.0.283" Java: "17.0.7" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+			name: "this"
+			"visible": true
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+				name: "dialogPane"
+				"border": new javax.swing.border.EmptyBorder( 12, 12, 12, 12 )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+					name: "contentPanel"
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class javax.swing.BoxLayout ) {
+						"axis": 1
+					} ) {
+						name: "panel3"
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) ) {
+							name: "panel4"
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "label1"
+								"text": "Name"
+							} )
+							add( new FormComponent( "javax.swing.JTextField" ) {
+								name: "Name"
+								"preferredSize": new java.awt.Dimension( 100, 30 )
+							} )
+						} )
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) ) {
+							name: "panel6"
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "label2"
+								"text": "Password"
+							} )
+							add( new FormComponent( "javax.swing.JTextField" ) {
+								name: "Password"
+								"preferredSize": new java.awt.Dimension( 100, 30 )
+							} )
+						} )
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) ) {
+							name: "panel1"
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "label3"
+								"text": "Email"
+							} )
+							add( new FormComponent( "javax.swing.JTextField" ) {
+								name: "Email"
+								"preferredSize": new java.awt.Dimension( 100, 30 )
+							} )
+						} )
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) ) {
+							name: "panel5"
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "label4"
+								"text": "生日"
+							} )
+							add( new FormComponent( "javax.swing.JTextField" ) {
+								name: "Year"
+								"preferredSize": new java.awt.Dimension( 50, 30 )
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "label5"
+								"text": "年"
+							} )
+							add( new FormComponent( "javax.swing.JTextField" ) {
+								name: "Month"
+								"minimumSize": new java.awt.Dimension( 50, 30 )
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "label6"
+								"text": "月"
+							} )
+							add( new FormComponent( "javax.swing.JTextField" ) {
+								name: "Day"
+								"minimumSize": new java.awt.Dimension( 50, 30 )
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "label7"
+								"text": "日"
+							} )
+						} )
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) ) {
+							name: "panel2"
+							add( new FormComponent( "javax.swing.JRadioButton" ) {
+								name: "Men"
+								"text": "男"
+								"$buttonGroup": new FormReference( "Sex" )
+								addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "MenMouseClicked", true ) )
+							} )
+							add( new FormComponent( "javax.swing.JRadioButton" ) {
+								name: "Women"
+								"text": "女"
+								"$buttonGroup": new FormReference( "Sex" )
+								addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "WomenMouseClicked", true ) )
+							} )
+						} )
+					}, new FormLayoutConstraints( class java.lang.String ) {
+						"value": "Center"
+					} )
+				}, new FormLayoutConstraints( class java.lang.String ) {
+					"value": "Center"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridBagLayout ) {
+					"$columnSpecs": "0:1.0, 80, 80"
+					"$rowSpecs": "0"
+					"$hGap": 5
+					"$vGap": 5
+				} ) {
+					name: "buttonBar"
+					"border": new javax.swing.border.EmptyBorder( 12, 0, 0, 0 )
+					add( new FormComponent( "javax.swing.JButton" ) {
+						name: "okButton"
+						"text": "注册"
+						addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "okButtonMouseClicked", true ) )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+						"gridx": 1
+						"gridy": 0
+					} )
+					add( new FormComponent( "javax.swing.JButton" ) {
+						name: "cancelButton"
+						"text": "取消"
+						addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "cancelButtonMouseClicked", true ) )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+						"gridx": 2
+						"gridy": 0
+					} )
+				}, new FormLayoutConstraints( class java.lang.String ) {
+					"value": "South"
+				} )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "Center"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 400, 300 )
+		} )
+		add( new FormNonVisual( "javax.swing.ButtonGroup" ) {
+			name: "Sex"
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 305 )
+		} )
+	}
+}

@@ -4,10 +4,16 @@
 
 package main.java.forum.GUI;
 
+import main.java.forum.util.DBUtil;
+
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.*;
+import java.util.Objects;
 import javax.swing.*;
 import javax.swing.border.*;
+
+import static main.java.forum.util.DBUtil.connection;
 
 /**
  * @author 11318
@@ -19,7 +25,53 @@ public class Search extends JFrame {
 
     private void searchMouseClicked(MouseEvent e) {
         // TODO add your code here
+        String uid = UID.getText();
+        String name = Name.getText();
+        if (uid.equals("") && name.equals("")) {
+            Result.setText("空");
+            return;
+        }
+        try (Connection connection = connection()) {
+            try {
+                Result.setText("");
+                Statement statement = connection.createStatement();
+                if (!uid.equals("") && !name.equals("")) {
+                    String sql = "select * from user where uid=?&&name=?";
+                    PreparedStatement ps = connection.prepareStatement(sql);
+                    ps.setString(1, uid);
+                    ps.setString(2, name);
+                    ResultSet rs = ps.executeQuery();
+                    Result.append("uID\tName\tEmail\tSex\tBirthday\n");
+                    while (rs.next()) {
+                        Result.append(rs.getString("uID") + "\t" + rs.getString("Name") + "\t" + rs.getString("Email") + "\t" + rs.getString("Sex") + "\t" + rs.getString("Birthday") + "\n");
+                    }
+                } else if (!uid.equals("")) {
+                    String sql = "select * from user where uid=?";
+                    PreparedStatement ps = connection.prepareStatement(sql);
+                    ps.setString(1, uid);
+                    ResultSet rs = ps.executeQuery();
 
+                    Result.append("uID\tName\tEmail\tSex\tBirthday\n");
+                    while (rs.next()) {
+                        Result.append(rs.getString("uID") + "\t" + rs.getString("Name") + "\t" + rs.getString("Email") + "\t" + rs.getString("Sex") + "\t" + rs.getString("Birthday") + "\n");
+                    }
+                } else {
+                    String sql = "select * from user where name=?";
+                    PreparedStatement ps = connection.prepareStatement(sql);
+                    ps.setString(1, name);
+                    ResultSet rs = ps.executeQuery();
+
+                    Result.append("uID\tName\tEmail\tSex\tBirthday\n");
+                    while (rs.next()) {
+                        Result.append(rs.getString("uID") + "\t" + rs.getString("Name") + "\t" + rs.getString("Email") + "\t" + rs.getString("Sex") + "\t" + rs.getString("Birthday") + "\n");
+                    }
+                }
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     private void initComponents() {
@@ -41,7 +93,7 @@ public class Search extends JFrame {
         Result = new JTextArea();
 
         //======== this ========
-        setPreferredSize(new Dimension(400, 300));
+        setPreferredSize(new Dimension(530, 330));
         setVisible(true);
         var contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
@@ -128,7 +180,6 @@ public class Search extends JFrame {
 
                     //---- Result ----
                     Result.setPreferredSize(new Dimension(360, 150));
-                    Result.setLineWrap(true);
                     Result.setWrapStyleWord(true);
                     scrollPane1.setViewportView(Result);
                 }

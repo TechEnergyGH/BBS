@@ -5,7 +5,7 @@ new FormModel {
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class java.awt.BorderLayout ) ) {
 			name: "this"
-			"preferredSize": new java.awt.Dimension( 400, 300 )
+			"preferredSize": new java.awt.Dimension( 530, 330 )
 			"visible": true
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
 				name: "dialogPane"
@@ -77,7 +77,6 @@ new FormModel {
 						add( new FormComponent( "javax.swing.JTextArea" ) {
 							name: "Result"
 							"preferredSize": new java.awt.Dimension( 360, 150 )
-							"lineWrap": true
 							"wrapStyleWord": true
 						} )
 					} )
@@ -89,7 +88,7 @@ new FormModel {
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
-			"size": new java.awt.Dimension( 430, 300 )
+			"size": new java.awt.Dimension( 530, 330 )
 		} )
 	}
 }
