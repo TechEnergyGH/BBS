@@ -4,12 +4,10 @@
 
 package main.java.forum.GUI.user;
 
-import main.java.forum.util.DBUtil;
-
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;
-import java.util.Objects;
+import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.*;
 
@@ -19,6 +17,7 @@ import static main.java.forum.util.DBUtil.connection;
  * @author 11318
  */
 public class Search extends JFrame {
+    ArrayList<String> ls = new ArrayList<>();
     public Search() {
         initComponents();
     }
@@ -36,6 +35,7 @@ public class Search extends JFrame {
             try {
                 Result.setText("uID\tName\tEmail\tSex\tBirthday\n");
                 String sql;
+                ls.clear();
                 if (!uid.equals("") && !name.equals("") && !email.equals("")) {
                     sql = "select * from user where uID=?&&Name=?&&Email=?";
                     PreparedStatement ps = connection.prepareStatement(sql);
@@ -44,6 +44,7 @@ public class Search extends JFrame {
                     ps.setString(3, email);
                     ResultSet rs = ps.executeQuery();
                     while (rs.next()) {
+                        ls.add(rs.getString("uID"));
                         Result.append(rs.getString("uID") + "\t" + rs.getString("Name") + "\t" + rs.getString("Email") + "\t" + rs.getString("Sex") + "\t" + rs.getString("Birthday") + "\n");
                     }
                 } else if (!uid.equals("") && !name.equals("")) {
@@ -53,6 +54,7 @@ public class Search extends JFrame {
                     ps.setString(2, name);
                     ResultSet rs = ps.executeQuery();
                     while (rs.next()) {
+                        ls.add(rs.getString("uID"));
                         Result.append(rs.getString("uID") + "\t" + rs.getString("Name") + "\t" + rs.getString("Email") + "\t" + rs.getString("Sex") + "\t" + rs.getString("Birthday") + "\n");
                     }
                 } else if (!uid.equals("") && !email.equals("")) {
@@ -62,6 +64,7 @@ public class Search extends JFrame {
                     ps.setString(2, email);
                     ResultSet rs = ps.executeQuery();
                     while (rs.next()) {
+                        ls.add(rs.getString("uID"));
                         Result.append(rs.getString("uID") + "\t" + rs.getString("Name") + "\t" + rs.getString("Email") + "\t" + rs.getString("Sex") + "\t" + rs.getString("Birthday") + "\n");
                     }
                 } else if (!name.equals("") && !email.equals("")) {
@@ -71,6 +74,7 @@ public class Search extends JFrame {
                     ps.setString(2, email);
                     ResultSet rs = ps.executeQuery();
                     while (rs.next()) {
+                        ls.add(rs.getString("uID"));
                         Result.append(rs.getString("uID") + "\t" + rs.getString("Name") + "\t" + rs.getString("Email") + "\t" + rs.getString("Sex") + "\t" + rs.getString("Birthday") + "\n");
                     }
                 } else if (!uid.equals("")) {
@@ -79,6 +83,7 @@ public class Search extends JFrame {
                     ps.setString(1, uid);
                     ResultSet rs = ps.executeQuery();
                     while (rs.next()) {
+                        ls.add(rs.getString("uID"));
                         Result.append(rs.getString("uID") + "\t" + rs.getString("Name") + "\t" + rs.getString("Email") + "\t" + rs.getString("Sex") + "\t" + rs.getString("Birthday") + "\n");
                     }
                 } else if (!name.equals("")) {
@@ -87,6 +92,7 @@ public class Search extends JFrame {
                     ps.setString(1, name);
                     ResultSet rs = ps.executeQuery();
                     while (rs.next()) {
+                        ls.add(rs.getString("uID"));
                         Result.append(rs.getString("uID") + "\t" + rs.getString("Name") + "\t" + rs.getString("Email") + "\t" + rs.getString("Sex") + "\t" + rs.getString("Birthday") + "\n");
                     }
                 } else {
@@ -95,6 +101,7 @@ public class Search extends JFrame {
                     ps.setString(1, email);
                     ResultSet rs = ps.executeQuery();
                     while (rs.next()) {
+                        ls.add(rs.getString("uID"));
                         Result.append(rs.getString("uID") + "\t" + rs.getString("Name") + "\t" + rs.getString("Email") + "\t" + rs.getString("Sex") + "\t" + rs.getString("Birthday") + "\n");
                     }
                 }
@@ -116,6 +123,22 @@ public class Search extends JFrame {
         dispose();
     }
 
+    private void deleteMouseClicked(MouseEvent e) {
+        // TODO add your code here
+        String sql = "delete from user where uID=?";
+        PreparedStatement ps;
+        try (Connection connection = connection()) {
+            ps = connection.prepareStatement(sql);
+            for (var x : ls) {
+                ps.setString(1, x);
+                ps.executeUpdate();
+            }
+            Result.setText("uID\tName\tEmail\tSex\tBirthday\n");
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         dialogPane = new JPanel();
@@ -130,6 +153,7 @@ public class Search extends JFrame {
         label3 = new JLabel();
         Email = new JTextField();
         search = new JButton();
+        delete = new JButton();
         buttonBar = new JPanel();
         okButton = new JButton();
         cancelButton = new JButton();
@@ -138,7 +162,7 @@ public class Search extends JFrame {
         Result = new JTextArea();
 
         //======== this ========
-        setPreferredSize(new Dimension(600, 330));
+        setPreferredSize(new Dimension(690, 350));
         setVisible(true);
         var contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
@@ -206,6 +230,16 @@ public class Search extends JFrame {
                     }
                 });
                 contentPanel.add(search);
+
+                //---- delete ----
+                delete.setText("\u5220\u9664");
+                delete.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        deleteMouseClicked(e);
+                    }
+                });
+                contentPanel.add(delete);
             }
             dialogPane.add(contentPanel, BorderLayout.NORTH);
 
@@ -277,6 +311,7 @@ public class Search extends JFrame {
     private JLabel label3;
     private JTextField Email;
     private JButton search;
+    private JButton delete;
     private JPanel buttonBar;
     private JButton okButton;
     private JButton cancelButton;
