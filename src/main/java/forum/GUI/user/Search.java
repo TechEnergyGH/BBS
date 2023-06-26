@@ -2,7 +2,7 @@
  * Created by JFormDesigner on Mon Jun 26 10:52:46 CST 2023
  */
 
-package main.java.forum.GUI;
+package main.java.forum.GUI.user;
 
 import main.java.forum.util.DBUtil;
 
@@ -104,6 +104,16 @@ public class Search extends JFrame {
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
+    }
+
+    private void okButtonMouseClicked(MouseEvent e) {
+        // TODO add your code here
+        dispose();
+    }
+
+    private void cancelButtonMouseClicked(MouseEvent e) {
+        // TODO add your code here
+        dispose();
     }
 
     private void initComponents() {
@@ -208,12 +218,24 @@ public class Search extends JFrame {
 
                 //---- okButton ----
                 okButton.setText("OK");
+                okButton.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        okButtonMouseClicked(e);
+                    }
+                });
                 buttonBar.add(okButton, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     new Insets(0, 0, 0, 5), 0, 0));
 
                 //---- cancelButton ----
                 cancelButton.setText("Cancel");
+                cancelButton.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        cancelButtonMouseClicked(e);
+                    }
+                });
                 buttonBar.add(cancelButton, new GridBagConstraints(2, 0, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     new Insets(0, 0, 0, 0), 0, 0));

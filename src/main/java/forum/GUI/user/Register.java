@@ -2,7 +2,7 @@
  * Created by JFormDesigner on Mon Jun 26 13:02:19 CST 2023
  */
 
-package main.java.forum.GUI;
+package main.java.forum.GUI.user;
 
 import main.java.forum.model.User;
 

@@ -4,6 +4,9 @@
 
 package main.java.forum.GUI;
 
+import main.java.forum.GUI.user.Register;
+import main.java.forum.GUI.user.Search;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -19,7 +22,7 @@ public class MainScreen extends JFrame {
 
     private void SearchMouseClicked(MouseEvent e) {
         // TODO add your code here
-        Search s = new Search();
+        main.java.forum.GUI.user.Search s = new Search();
     }
 
     private void thisWindowClosing(WindowEvent e) {
@@ -29,7 +32,12 @@ public class MainScreen extends JFrame {
 
     private void RegisterMouseClicked(MouseEvent e) {
         // TODO add your code here
-        Register r = new Register();
+        main.java.forum.GUI.user.Register r = new Register();
+    }
+
+    private void cancelButtonMouseClicked(MouseEvent e) {
+        // TODO add your code here
+        System.exit(0);
     }
 
     private void initComponents() {
@@ -39,7 +47,6 @@ public class MainScreen extends JFrame {
         Register = new JButton();
         Search = new JButton();
         buttonBar = new JPanel();
-        okButton = new JButton();
         cancelButton = new JButton();
 
         //======== this ========
@@ -92,14 +99,14 @@ public class MainScreen extends JFrame {
                 ((GridBagLayout)buttonBar.getLayout()).columnWidths = new int[] {0, 85, 80};
                 ((GridBagLayout)buttonBar.getLayout()).columnWeights = new double[] {1.0, 0.0, 0.0};
 
-                //---- okButton ----
-                okButton.setText("OK");
-                buttonBar.add(okButton, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0,
-                    GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                    new Insets(0, 0, 0, 5), 0, 0));
-
                 //---- cancelButton ----
-                cancelButton.setText("Cancel");
+                cancelButton.setText("\u9000\u51fa");
+                cancelButton.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        cancelButtonMouseClicked(e);
+                    }
+                });
                 buttonBar.add(cancelButton, new GridBagConstraints(2, 0, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     new Insets(0, 0, 0, 0), 0, 0));
@@ -118,7 +125,6 @@ public class MainScreen extends JFrame {
     private JButton Register;
     private JButton Search;
     private JPanel buttonBar;
-    private JButton okButton;
     private JButton cancelButton;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }
