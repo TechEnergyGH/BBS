@@ -1,10 +1,11 @@
 create SCHEMA bbs DEFAULT CHARACTER set utf8;
 
+USE bbs;
 CREATE TABLE `user`(
  `uID` int NOT NULL AUTO_INCREMENT COMMENT '用户编号',
  `Name` VARCHAR(20) NOT NULL COMMENT '用户昵称',
  `Password` VARCHAR(20) NOT NULL COMMENT '用户密码',
- `Email` VARCHAR(20) COMMENT '电子邮箱',
+ `Email` VARCHAR(30) COMMENT '电子邮箱',
  `Sex`  VARCHAR(5) NOT NULL COMMENT '用户性别',
  `Birthday` DATE NOT NULL COMMENT '用户生日',
  `PostNumber` int NOT NULL DEFAULT '0' COMMENT '发帖数',
@@ -101,9 +102,26 @@ CREATE TABLE `VotePerson`(
 	FOREIGN KEY(`uID`) REFERENCES `user`(`uID`)
 )ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8  COMMENT='投票人表';
 
-SELECT * FROM user
-WHERE uID=10;
+SELECT * FROM user WHERE uID=10;
 
 INSERT into user VALUES(0,"lisi","123456","1234@qq.com","男",'2023-6-26','0','0','0');
 delete from user where uID=24;
 UPDATE user SET Name='1' WHERE uID='16';
+
+CREATE VIEW v_Vote AS SELECT vote.uID,Topic,vote.VoteID,`Option`,`VotePersonID` FROM vote,voteoption,voteperson
+WHERE vote.VoteID=voteoption.VoteID and voteoption.OptionID=voteperson.OptionID;
+
+INSERT INTO plate VALUES(0,10,"test","test?",0);
+
+
+CREATE TRIGGER  after_insert_mainpost AFTER INSERT ON mainpost FOR EACH ROW
+BEGIN
+	UPDATE `user` SET PostNumber=PostNumber + 1 WHERE uID=new.uID;
+	UPDATE plate SET PostCount=PostCount + 1 WHERE pID=new.pID;
+END;
+
+CREATE TRIGGER after_delete_mainpost AFTER DELETE ON mainpost FOR EACH ROW
+BEGIN
+	UPDATE `user` SET PostNumber=PostNumber - 1 WHERE uID=old.uID;
+	UPDATE plate SET PostCount=PostCount - 1 WHERE pID=old.pID;
+END;
